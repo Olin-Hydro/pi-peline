@@ -15,18 +15,18 @@ class Requests():
         return {"api_token": self.api_token}
         
     def post_data(self, d_type: str, data: dict):
-        url = self.base_url + "/" + d_type
+        url = self.base_url + d_type + "/"
         response = requests.post(
             url = url,
-            data = data,
-            headers = self.headers
+            json = data,
+            #headers = self.headers
         )
         return response
     
     def get_data(self, d_type: str, args: str = ""):
-        url = self.base_url + "/" + d_type + "/" + args
+        url = self.base_url + d_type + "/" + args
         response = requests.get(
             url = url,
-            headers = self.headers
+            #headers = self.headers
         )
         return response

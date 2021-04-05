@@ -27,10 +27,13 @@ def run():
                 )
             elif data["request"] == get_type:
                 res = req.get_data(d_type=data["type"], args=data["data"])
-            if res.status_code != 200:
-                s.write(res.text + b"error\n")
             else:
-                s.write(res.text + b"success\n")
+                continue
+            if res.status_code != 200:
+                s.write(bytes(res.text + "error\n", 'utf-8'))
+            else:
+                s.write(bytes(res.text + "success\n", 'utf-8'))
+                print("success")
 
 
 def parse_line(line):
@@ -39,10 +42,10 @@ def parse_line(line):
     ph: post: 7.4
     ec: post: 600
     """
-    data = {}
+    data = {"data":""}
     data_list = line.split(":")
     data["type"] = data_list.pop(0).strip().lower()
-    data["request"] = data_list.pop(1).strip().lower()
+    data["request"] = data_list.pop(0).strip().lower()
     for item in data_list:
         data["data"] += item.strip().lower()
     return data
