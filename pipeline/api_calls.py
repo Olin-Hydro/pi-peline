@@ -1,4 +1,4 @@
-from .config import API_URL, API_TOKEN
+from .config import API_URL
 
 import os
 import requests
@@ -13,11 +13,6 @@ class Requests():
 
     def __init__(self):
         self.base_url = API_URL
-        self.api_token = API_TOKEN
-        self.headers = self.create_headers()
-
-    def create_headers(self):
-        return {"api_token": self.api_token}
 
     def handle_request(self, data):
         if data["request"] == POST_STR:
@@ -35,7 +30,6 @@ class Requests():
         response = requests.post(
             url = url,
             json = data,
-            #headers = self.headers
         )
         if response.status_code != 200:
             return "400"
@@ -47,7 +41,6 @@ class Requests():
         url = self.base_url + args
         response = requests.get(
             url = url,
-            #headers = self.headers
         )
         if response.status_code != 200:
             return "400"

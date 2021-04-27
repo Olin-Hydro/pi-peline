@@ -1,5 +1,4 @@
 import serial
-import time
 
 from pipeline import SERIAL_PORT, BAUDRATE, Requests, parse_line
 
@@ -17,7 +16,7 @@ def run():
             print(line)
             data = parse_line(line)
             req = Requests()
-            print("Sending Request")
+            print(f"Sending Request: {data}")
             res = req.handle_request(data)
             if res not in ["404", "400"]:
                 print("Relaying Message")
@@ -25,8 +24,6 @@ def run():
             else:
                 print("Error")
                 pass # TODO: log error
-            
-            
 
 
 if __name__ == "__main__":

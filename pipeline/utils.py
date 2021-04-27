@@ -8,14 +8,17 @@ def parse_line(line):
     task: post: 4000: ph
     """
     data_list = line.split(":")
-    data = {"data":""}
-    if len(data_list) in [3, 4]:
-        data["type"] = data_list.pop(0).strip().lower()
-        data["request"] = data_list.pop(0).strip().lower()
-        if len(data_list) == 4:
-            data["task_type"] = data_list.pop(1).strip.lower()
+    data = {}
+    if len(data_list) in (3, 4):
+        data_list = [item.strip().lower() for item in data_list]
+        data["type"] = data_list[0]
+        data["request"] = data_list[1]
+        data["data"] = data_list[2]
     else:
         return None
-    for item in data_list:
-        data["data"] += item.strip().lower()
+    if len(data_list) == 4:
+        # Task log
+        data["data"] = {}
+        data["data"]["data"] = data_list[2]
+        data["data"]["task_type"] = data_list[3]
     return data

@@ -1,8 +1,7 @@
 from .config import (
     SERIAL_PORT, 
     API_URL, 
-    BAUDRATE, 
-    API_TOKEN
+    BAUDRATE,
 )
 from .api_calls import Requests
 from .utils import parse_line
