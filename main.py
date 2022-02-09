@@ -1,5 +1,4 @@
 import serial
-import serial.tools.list_ports
 
 from pipeline import SERIAL_PORT, BAUDRATE, Requests, parse_line
 
@@ -10,6 +9,7 @@ def run():
     """
     s = serial.Serial(SERIAL_PORT, BAUDRATE, timeout=1)
     req = Requests()
+    print("Starting loop")
     while True:
         if s.in_waiting > 0:
             data = read_data(s)
@@ -18,7 +18,7 @@ def run():
                 continue
             res = send_request(data, req)
             handshake(res, s)
-            
+
 
 def read_data(s):
     print("Reading")
@@ -34,8 +34,8 @@ def send_request(data, req):
 
 def handshake(res, s):
     if res.status_code == 200:
-        print("Relaying Message")
-        s.write(res.encode('utf-8'))
+        print(f"Relaying Message: {res.text}")
+        s.write(bytes(res.text, "utf-8"))
     else:
         print(f"Error sending api request: {res}")
 

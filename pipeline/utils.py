@@ -1,3 +1,5 @@
+import serial.tools.list_ports
+
 
 def parse_line(line):
 
@@ -16,3 +18,12 @@ def parse_line(line):
         data["data"]["data"] = data_list[2]
         data["data"]["task_type"] = data_list[3]
     return data
+
+
+def find_arduino(port=None):
+    if port is None:
+        ports = serial.tools.list_ports.comports()
+        for p in ports:
+            if p.manufacturer is not None and "Arduino" in p.manufacturer:
+                port = p.device
+    return port

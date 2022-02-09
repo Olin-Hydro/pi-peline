@@ -8,7 +8,7 @@ def test_get_interval(req, parsed_sense_interval):
 
 def test_get_ph_high(req, parsed_ph_high):
     res = req.handle_request(parsed_ph_high)
-    assert res == 7
+    assert res == 10
 
 
 def test_bad_parse(req):
